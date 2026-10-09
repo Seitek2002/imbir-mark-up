@@ -1,0 +1,83 @@
+// Нижнее мобильное меню (widgets/mobile-bottom-nav). Состояние «гость», активный пункт — «Home» (главная).
+//
+// КАК МЕНЯТЬ АКТИВНЫЙ ПУНКТ: отличается только цвет на <Link> — последний класс в строке:
+//   активный   : "flex-1 flex flex-col items-center justify-center gap-1 py-2.5 transition-colors text-primary"
+//   неактивный : "flex-1 flex flex-col items-center justify-center gap-1 py-2.5 transition-colors text-muted"
+// Иконки инлайновые (stroke="currentColor"), поэтому красятся вместе с подписью.
+//
+// Где показывать (как в оригинале): только на страницах-вкладках — "/" (активен Home),
+// "/search" (активен «Поиск»), "/profile" (активен «Профиль»; у врача вкладка ведёт на /doctor-profile,
+// у клиники — на /clinic-profile/menu, и там активна она же). На вложенных экранах и на /chat меню НЕТ.
+// Подпись первого пункта в оригинале именно "Home" (латиницей).
+// У гостя профиль ведёт на "/profile" с prefetch={false} (как в оригинале).
+// Меню fixed, поэтому у <main> страницы в оригинале нижний отступ "pb-16 lg:pb-0".
+// Вставлять в конец страницы, после </main> (в оригинале рендерится в providers после children).
+//
+// ---------- IMPORTS ----------
+import Link from "next/link";
+
+// ---------- JSX ----------
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-border pb-[env(safe-area-inset-bottom)]">
+        <div className="flex items-stretch">
+          <Link
+            href="/"
+            className="flex-1 flex flex-col items-center justify-center gap-1 py-2.5 transition-colors text-primary"
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+              <path
+                d="M3 10.5 12 3l9 7.5M5.25 9v10.5A.75.75 0 0 0 6 20.25h3.75V15a1.5 1.5 0 0 1 1.5-1.5h1.5a1.5 1.5 0 0 1 1.5 1.5v5.25H18a.75.75 0 0 0 .75-.75V9"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="text-[11px] font-medium leading-none">Home</span>
+          </Link>
+          <Link
+            href="/search"
+            className="flex-1 flex flex-col items-center justify-center gap-1 py-2.5 transition-colors text-muted"
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+              <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.6" />
+              <path
+                d="m20 20-3.5-3.5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="text-[11px] font-medium leading-none">Поиск</span>
+          </Link>
+          <Link
+            href="/chat"
+            className="flex-1 flex flex-col items-center justify-center gap-1 py-2.5 transition-colors text-muted"
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+              <path
+                d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5H9l-4 3.5V16H5.5A1.5 1.5 0 0 1 4 14.5v-9Z"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="text-[11px] font-medium leading-none">Чат</span>
+          </Link>
+          <Link
+            href="/profile"
+            prefetch={false}
+            className="flex-1 flex flex-col items-center justify-center gap-1 py-2.5 transition-colors text-muted"
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6">
+              <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.6" />
+              <path
+                d="M4.5 20a7.5 7.5 0 0 1 15 0"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="text-[11px] font-medium leading-none">Профиль</span>
+          </Link>
+        </div>
+      </nav>

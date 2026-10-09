@@ -1,0 +1,142 @@
+// Футер сайта (widgets/footer). Активных пунктов нет — ссылки всегда
+// "text-secondary ... hover:text-primary", менять ничего не нужно.
+// Контакты/соцсети в оригинале приходят из siteSettings — здесь подставлены статичные значения
+// (email/телефон/адрес — это FALLBACK из оригинала; ссылки соцсетей — правдоподобные).
+// Иконки соцсетей красятся в белый через "[&_path]:fill-white".
+// На главной футер в оригинале обёрнут в LazyInView: <div style={{ minHeight: 300 }}>…</div> — на других
+// страницах футер вставляется как есть.
+//
+// ---------- IMPORTS ----------
+import Link from "next/link";
+
+import FacebookIcon from "@/assets/icons/auth/facebook.svg";
+import InstagramIcon from "@/assets/icons/auth/instagram.svg";
+import LinkedinIcon from "@/assets/icons/auth/linkedin.svg";
+import TwitterIcon from "@/assets/icons/auth/twitter.svg";
+import Logo from "@/assets/icons/header/logo.svg";
+
+// ---------- JSX ----------
+      <footer className="w-full max-w-360 mx-auto px-4 md:px-10 pb-6 pt-8 md:pt-10">
+        {/* Контейнер со светло-бежевым фоном */}
+        <div className="bg-[#FCF9F7] rounded-4xl p-6 sm:p-10 md:p-12 flex flex-col gap-10">
+          {/* Верхняя часть: Сетка с контентом */}
+          <div className="flex flex-col lg:flex-row justify-between gap-10 lg:gap-8">
+            {/* Логотип и социальные сети */}
+            <div className="flex flex-col gap-6 lg:w-1/4 shrink-0">
+              <Link href="/">
+                <Logo className="w-35 h-auto" />
+              </Link>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://facebook.com/imbir.kg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="size-11 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary-dark transition-colors shrink-0"
+                >
+                  <FacebookIcon className="[&_path]:fill-white" />
+                </a>
+                <a
+                  href="https://instagram.com/imbir.kg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="size-11 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary-dark transition-colors shrink-0"
+                >
+                  <InstagramIcon className="[&_path]:fill-white" />
+                </a>
+                <a
+                  href="https://x.com/imbir_kg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="size-11 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary-dark transition-colors shrink-0"
+                >
+                  <TwitterIcon className="[&_path]:fill-white" />
+                </a>
+                <a
+                  href="https://linkedin.com/company/imbir-kg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="size-11 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary-dark transition-colors shrink-0"
+                >
+                  <LinkedinIcon className="[&_path]:fill-white" />
+                </a>
+              </div>
+            </div>
+
+            {/* Ссылки и контакты (Сетка: 1 колонка на моб, 2 на планшете, 3 на ПК) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 lg:gap-10 lg:w-3/4 lg:ml-auto">
+              {/* Блок 1 */}
+              <div className="flex flex-col items-start">
+                <h3 className="text-foreground font-semibold text-base mb-4 md:mb-6">
+                  Быстрые ссылки
+                </h3>
+                <Link
+                  href="/clinics"
+                  className="text-secondary text-sm md:text-base hover:text-primary transition-colors inline-block py-1.5 md:py-2 min-w-11"
+                >
+                  Клиники
+                </Link>
+                <Link
+                  href="/specialists"
+                  className="text-secondary text-sm md:text-base hover:text-primary transition-colors inline-block py-1.5 md:py-2 min-w-11"
+                >
+                  Специалисты
+                </Link>
+                <Link
+                  href="/services"
+                  className="text-secondary text-sm md:text-base hover:text-primary transition-colors inline-block py-1.5 md:py-2 min-w-11"
+                >
+                  Услуги
+                </Link>
+              </div>
+
+              {/* Блок 2 */}
+              <div className="flex flex-col items-start">
+                <h3 className="text-foreground font-semibold text-base mb-4 md:mb-6">
+                  Помощь и поддержка
+                </h3>
+                <Link
+                  href="/contacts"
+                  className="text-secondary text-sm md:text-base hover:text-primary transition-colors inline-block py-1.5 md:py-2 min-w-11"
+                >
+                  Контакты
+                </Link>
+                <Link
+                  href="/terms"
+                  className="text-secondary text-sm md:text-base hover:text-primary transition-colors inline-block py-1.5 md:py-2 min-w-11"
+                >
+                  Условия и положения
+                </Link>
+                <Link
+                  href="/privacy"
+                  className="text-secondary text-sm md:text-base hover:text-primary transition-colors inline-block py-1.5 md:py-2 min-w-11"
+                >
+                  Политика конфиденциальности
+                </Link>
+              </div>
+
+              {/* Блок 3 */}
+              <div className="flex flex-col items-start">
+                <h3 className="text-foreground font-semibold text-base mb-4 md:mb-6">
+                  Свяжитесь с нами
+                </h3>
+                <p className="text-secondary text-sm md:text-base mb-3 md:mb-4">
+                  info@imbir.kg
+                </p>
+                <p className="text-secondary text-sm md:text-base mb-3 md:mb-4">
+                  +996 (312) 55-00-11
+                </p>
+                <p className="text-secondary text-sm md:text-base mb-3 md:mb-4">
+                  г. Бишкек, ул. Мидина Алыбаева, 10
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Нижняя часть: Копирайт */}
+          <div className="flex justify-center items-center md:mt-10 pt-6 md:pt-0 border-t border-border-soft/50 md:border-none">
+            <p className="text-foreground text-sm text-center">
+              © 2026 Imbir. Все права защищены
+            </p>
+          </div>
+        </div>
+      </footer>

@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand */
+  --color-primary: #f5653e;
+  --color-primary-dark: #e5542d;
+  --color-primary-tint: #fff8f5;
+
+  /* Text */
+  --color-foreground: #191a1b;
+  --color-secondary: #686f72;
+  --color-muted: #838a8d;
+  --color-dim: #c4c8ca;
+
+  /* Surfaces */
+  --color-background: #f2f3f5;
+  --color-surface: #f8f9fa;
+
+  /* Borders */
+  --color-border: #e5e6e8;
+  --color-border-soft: #e3e4e5;
+
+  /* Overlay */
+  --color-overlay: #0d0d12;
+
+  /* Акцент «требует внимания». Единственный холодный цвет в тёплой палитре,
+     поэтому в списке оранжевых карточек новая запись видна сразу. Используется
+     только для этого — если начать красить им что-то ещё, эффект пропадёт. */
+  --color-info: #2f6bd8;
+  --color-info-tint: #eef4fe;
+}
+
+/* ── Тач-устройства: убираем то, что выдаёт "это сайт в браузере" ────────── */
+
+html,
+body {
+  /* Не даём "резиновой" прокрутке всей страницы всплывать поверх контента —
+     в вебвью это выглядит как графический глюк, а не нативный скролл. */
+  overscroll-behavior-y: none;
+}
+
+/* Safari на iOS приближает страницу, когда фокус уходит в поле со шрифтом
+   меньше 16px, и обратно уже не отдаляет — человек остаётся на «приближённом»
+   сайте и вынужден сводить пальцы вручную. Поэтому на телефонах у всех полей
+   ввода минимум 16px; правило одно на весь проект, чтобы новое поле нельзя
+   было завести с этим багом. На десктопе размеры из компонентов не трогаем.
+
+   Через :not() вместо простого input, потому что чекбоксы, радио и слайдеры
+   размера шрифта не имеют, а вот их вёрстку он бы сдвинул.
+
+   Альтернатива — maximum-scale=1 в viewport — запрещает и обычный зум
+   пальцами, то есть чинит один баг ценой доступности. */
+@media (max-width: 767px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+button,
+a,
+[role="button"] {
+  /* Стандартная серо-синяя вспышка при тапе (у кнопок уже есть свои
+     active:-состояния) и системное long-press меню
+     "Сохранить картинку"/выделение текста на кнопках-ссылках. */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ── Числовые инпуты: убираем нативные стрелки-степпер ───────────────────── */
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+/* ── Modal animations ──────────────────────────────────────────────────── */
+
+.modal-overlay {
+  opacity: 1;
+  transition: opacity 200ms ease;
+}
+
+@starting-style {
+  .modal-overlay {
+    opacity: 0;
+  }
+}
+
+.modal-overlay[data-state="closed"] {
+  opacity: 0;
+}
+
+.modal-panel {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+@starting-style {
+  .modal-panel {
+    opacity: 0;
+    transform: scale(0.95) translateY(6px);
+  }
+}
+
+.modal-panel[data-state="closed"] {
+  opacity: 0;
+  transform: scale(0.95) translateY(6px);
+}
+
+/* Bottom-sheet variant (mobile) */
+.modal-sheet {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 200ms ease,
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@starting-style {
+  .modal-sheet {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+.modal-sheet[data-state="closed"] {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.search-panel {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+@starting-style {
+  .search-panel {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.search-panel[data-state="closed"] {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
